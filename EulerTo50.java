@@ -11,33 +11,45 @@ public class EulerTo50 {
 	public static void Q5_SmallestMultiple() {
 		
 		//primes within 20
-		String factors = "";
+		Integer[][] factors = new Integer [20][4];
 		
-		for (int i = 1; i < 21; i++) {
-			factors += primeFactors(i)+ ", ";
+		int count = 0;
+		for (int i = 10; i < 21; i++) {
+			factors[count] = primeFactors(i);
+			count++;
 	
 		}
-		String[] factorsList = factors.split(",");
-		for (int i = 1; i < 20; i++) {
-			System.out.print(factorsList[i] + " " +(i+1));
+		
+		for (int i = 0; i < factors.length; i++) {
+			System.out.println("");
+			for (int j = 0; j < factors[i].length; j++) {
+				if(factors[i][j] != null) {
+					System.out.print(factors[i][j]+", ");
+				}
+				
+			}
 		}
 		
 		
 
 	}
 
-	public static String primeFactors(int n)
+	public static Integer[] primeFactors(int n)
     {
-		String end = "";
+		Integer[] endfactors = new Integer[4];
         // Print the number of 2s that divide n
 		if (n == 1){
-			return end += 1;
+			endfactors[0] = 1;
+			return endfactors;
 		}
+		
+		int factor_counter = 0;
         while (n%2==0)
         {
             
-            end += 2;
+            endfactors[factor_counter] = 2;
             n /= 2;
+            factor_counter++;
         }
  
         // n must be odd at this point.  So we can
@@ -47,16 +59,18 @@ public class EulerTo50 {
             // While i divides n, print i and divide n
             while (n%i == 0)
             {
-                end += i;
+                endfactors[factor_counter] = i;
                 n /= i;
+                factor_counter++;
             }
         }
  
         // This condition is to handle the case when
         // n is a prime number greater than 2
         if (n > 2)
-            end+=n;
+            endfactors[factor_counter] = n;
+        	
         
-        return(end);
+        return(endfactors);
     }
 }
